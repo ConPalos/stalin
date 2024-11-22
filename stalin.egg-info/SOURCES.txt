@@ -1,8 +1,0 @@
-setup.py
-gulag/__init__.py
-gulag/__main__.py
-stalin.egg-info/PKG-INFO
-stalin.egg-info/SOURCES.txt
-stalin.egg-info/dependency_links.txt
-stalin.egg-info/top_level.txt
-test/test.py
