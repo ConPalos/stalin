@@ -26,9 +26,45 @@ module_with_args = args[1:]
 module = args[1]
 
 # if we want to recover files, note that here
-if len(args) == 2 and module == recovery_string:
-    # TODO
-    pass
+if module == recovery_string:
+    # fetch all the prisoners
+    g = open('gulag.ussr', 'rt')
+    gulag = g.readlines()
+
+    if len(gulag) == 0:
+        print('Your gulag is empty, Premier')
+
+    # the lines must be put back in reverse order
+    gulag = gulag[::-1]
+
+    for prisoner in gulag:
+        # split on the separator
+        freed = prisoner.split('#')
+
+        # if the line had a comment in it, the comment needs to keep existing
+        code = '#'.join(freed[2:])
+
+        home = freed[0]
+        address = int(freed[1])
+
+        # place the prisoner back in their home
+        f = open(home, 'rt')
+        contents = f.readlines()
+        f.close()
+        contents.insert(address - 1, code)
+        f = open(home, 'wt')
+        for line in contents:
+            f.write(line)
+
+        f.close()
+
+    # close the gulag
+    g.close()
+    g = open('gulag.ussr', 'w')
+    g.close()
+    
+    print('The gulag has been closed')
+    quit()
 
 if len(module_with_args) > 1:
     args = module_with_args[1:]
