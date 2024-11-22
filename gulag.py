@@ -62,7 +62,12 @@ except Exception as e:
 
     # get the file name and line in the file
     file_name = re.findall(r'".*"', line)[0].strip('"')
-    line_number = re.findall(r'\d+', line)
+    line_number = re.findall(r'\d+', line)[0]
+    line_number = int(line_number)
+
+    # edge case: the file might be the one called initially
+    if file_name == '<string>':
+        file_name = module
 
     # read in the file
     f = open(file_name)
